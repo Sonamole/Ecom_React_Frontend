@@ -21,18 +21,18 @@ const MasterLayout = () => {
           <main>
             <Routes>
               {
-                routes.map((route, idx) => (
-                  route.component && (
-                    <Route
-                      key={idx}
-                      path={route.path}
-                      exact={route.exact}
-                      element={<route.component />}
+                routes.map((route,idx) => ( //iterates through an array of route objects (routes), where each object contains information about a specific route.
+                  route.component && ( //checks if route.component exists (truthy). If it does, it renders a <Route> component.
+                    <Route // For each route object in the routes array, a <Route> component is created
+                      key={idx}//React requires a unique key prop when rendering arrays of components.
+                      path={route.path}//Sets the path of the route based on the path
+                      exact={route.exact}//Specifies whether the route should match exactly (true) or inclusively (false) for the path.
+                      element={<route.component />}//Specifies the component to render when the route's path matches.
                     />
                   )
                 ))
               }
-              <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
+              <Route path="/admin" element={<Navigate to="/admin/dashboard" />} /> {/* When users go to /admin, it navigates (redirects) them to /admin/dashboard. */}
             </Routes>
           </main>
           <Footer />

@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import Navbar from '../../../layouts/frontend/Navbar';
 import axios from 'axios';
 import swal from 'sweetalert';
-
-// import { useNavigate } from 'react-router-dom'; // Import useNavigate correctly
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
-  // const navigate = useNavigate(); // Use useNavigate hook correctly
-
+  const navigate = useNavigate();
   const [register, setRegister] = useState({
     name: '',
     email: '',
@@ -41,7 +39,7 @@ function Register() {
           localStorage.setItem('auth_token', response.data.token);
           localStorage.setItem('auth_name', response.data.username);
           swal("Success", response.data.message, "success");
-          // navigate('/'); // Redirect to home page after successful registration
+          navigate('/');
         } else {
           console.log("Error working");
           setRegister({ ...register, error_list: response.data.validation_errors });

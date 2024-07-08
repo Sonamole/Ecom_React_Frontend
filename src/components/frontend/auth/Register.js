@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from '../../../layouts/frontend/Navbar';
-import axios from 'axios';
-import swal from 'sweetalert';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';//imported to handle HTTP requests to your backend API.
+import swal from 'sweetalert';//imported to display nice alert messages to the user.
+import { useNavigate } from 'react-router-dom';// navigate to different pages.
 
 function Register() {
   const navigate = useNavigate();
@@ -11,13 +11,13 @@ function Register() {
     email: '',
     password: '',
     error_list: [],
-  });
+  });//The initial state object has four properties and initially its empty.name,email and password holds a string and error_list holds an array
 
-  const handleInput = (e) => {
-    e.persist();
-    setRegister(register => ({
-      ...register,
-      [e.target.name]: e.target.value
+  const handleInput = (e) => {//handle input changes in a form and update the state accordingly.This function is intended to handle input events (like when a user types into a text field).
+    e.persist();//By calling e.persist(), you ensure that the event object and its properties (like e.target.name and e.target.value) remain accessible even after the event handler completes.
+    setRegister(register => ({ //  // Calls the setRegister function to update the state.The setRegister function takes a callback function(register) as its argument.//The function inside receives the current state (register).
+      ...register,//uses the spread operator to copy all properties(name,email,password) of the current register state into a new object.
+      [e.target.name]: e.target.value //// e.target.name is the name attribute of the input element that triggered.e.target.value is the current value of that input element.
     }));
   };
 
@@ -30,19 +30,21 @@ function Register() {
       password: register.password,
     }
 
-    axios.get('sanctum/csrf-cookie').then(response => {
+    axios.get('sanctum/csrf-cookie').then(response => { //sends a GET request to the Laravel backend to get a CSRF token.The server responds by setting a CSRF token in the cookies of the user's browser.
+      //When the axios.get('sanctum/csrf-cookie') request is sent, the EnsureFrontendRequestsAreStateful middleware intercepts it.then , Laravel generates a CSRF token and sets it in a cookie named XSRF-TOKEN.
       console.log('sanctum working',response);
-      axios.post('api/register', data).then(response => {
-        console.log('post working');
+      axios.post('api/register', data).then(response => { //.then(response => { ... }) is a promise method that runs when the POST request is successful.
+        console.log('post working',response);
         if (response.data.status === 200) {
           console.log(response.data);
-          localStorage.setItem('auth_token', response.data.token);
+          localStorage.setItem('auth_token', response.data.token);//This stores the authentication token received from the server in the browser's localStorage.
           localStorage.setItem('auth_name', response.data.username);
           swal("Success", response.data.message, "success");
           navigate('/');
         } else {
           console.log("Error working");
           setRegister({ ...register, error_list: response.data.validation_errors });
+          //This updates the register state with the validation errors received from the server.{ ...register } copies the current state.error_list: response.data.validation_errors sets the error_list field with the validation errors from the server.
         }
       });
     });

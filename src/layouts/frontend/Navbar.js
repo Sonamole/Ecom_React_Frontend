@@ -1,7 +1,50 @@
+import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert'
+import { useNavigate } from 'react-router-dom'
 
 function Navbar() {
+
+const navigate=useNavigate();
+
+const logoutSubmit=(e)=>{
+  e.preventDefault();
+  axios.post('api/logout').then(response=>{
+    if(response.data.status===200)
+    {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('auth_name');
+      swal("Sucess",response.data.message,"success")
+      navigate('/');
+    }
+  });
+}
+
+   var AuthButtons='';
+
+   if(!localStorage.getItem('auth_token')){
+      AuthButtons=(
+          <ul className='navbar-nav'>
+             <li className="nav-item">
+              <Link className="nav-link" to="/login">Login</Link>
+             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/register">Register</Link>
+            </li>
+          </ul>
+
+      );
+   }
+   else{
+
+    AuthButtons=(
+      <li className="nav-item">
+      <button type='button' onClick={logoutSubmit} className="nav-link btn btn-danger btn-sm text-white">Logout</button>
+    </li>
+    );
+
+   }
   return (
 
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
@@ -18,12 +61,8 @@ function Navbar() {
       <li className="nav-item">
         <Link className="nav-link" to="#">Collections</Link>
       </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/login">Login</Link>
-      </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/register">Register</Link>
-      </li>
+       {AuthButtons}
+
     </ul>
 
   </div>

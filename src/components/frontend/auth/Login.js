@@ -40,7 +40,14 @@ const navigate=useNavigate();
         localStorage.setItem('auth_token', response.data.token);
         localStorage.setItem('auth_name', response.data.username);
         swal("Sucess",response.data.message,"success")
-        navigate('/');
+        if(response.data.role==='admin')
+        {
+          navigate('/admin/dashboard');
+        }
+        else{
+          navigate('/');
+        }
+
       }
       else if(response.data.status===401){
         swal("Warning",response.data.message,"warning")

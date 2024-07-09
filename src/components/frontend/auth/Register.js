@@ -14,15 +14,15 @@ function Register() {
   });//The initial state object has four properties and initially its empty.name,email and password holds a string and error_list holds an array
 
   const handleInput = (e) => {//handle input changes in a form and update the state accordingly.This function is intended to handle input events (like when a user types into a text field).
-    e.persist();//By calling e.persist(), you ensure that the event object and its properties (like e.target.name and e.target.value) remain accessible even after the event handler completes.
-    setRegister(register => ({ //  // Calls the setRegister function to update the state.The setRegister function takes a callback function(register) as its argument.//The function inside receives the current state (register).
+    e.persist();//By calling e.persist(), you ensure that the event object and its properties (like e.target.name and e.target.value) remain accessible even after the event handler completes(which means even if user user stops typing).
+    setRegister(register => ({ //  // Calls the setRegister method to update register function to update the state at the moment when user types something.
       ...register,//uses the spread operator to copy all properties(name,email,password) of the current register state into a new object.
       [e.target.name]: e.target.value //// e.target.name is the name attribute of the input element that triggered.e.target.value is the current value of that input element.
     }));
   };
 
   const registerSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault();//prevents the default form submission behavior, which is to reload the page and prepares the data to be sent to the server.
 
     const data = {
       name: register.name,
@@ -30,8 +30,8 @@ function Register() {
       password: register.password,
     }
 
-    axios.get('sanctum/csrf-cookie').then(response => { //sends a GET request to the Laravel backend to get a CSRF token.The server responds by setting a CSRF token in the cookies of the user's browser.
-      //When the axios.get('sanctum/csrf-cookie') request is sent, the EnsureFrontendRequestsAreStateful middleware intercepts it.then , Laravel generates a CSRF token and sets it in a cookie named XSRF-TOKEN.
+    axios.get('sanctum/csrf-cookie').then(response => { 
+      //When the axios.get('sanctum/csrf-cookie') request(get request) is sent, the EnsureFrontendRequestsAreStateful middleware in laravel intercepts it.then , Laravel generates a CSRF token and sets it in a cookie in user browser named XSRF-TOKEN.
       console.log('sanctum working',response);
       axios.post('api/register', data).then(response => { //.then(response => { ... }) is a promise method that runs when the POST request is successful.
         console.log('post working',response);

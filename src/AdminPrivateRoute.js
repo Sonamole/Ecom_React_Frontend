@@ -31,9 +31,9 @@ function AdminPrivateRoute() {
 
         fetchData();
 
-        return () => {
-            setAuthenticated(false); // reset authenticated state when component unmounts
-        };
+        // return () => {
+        //     setAuthenticated(false); // reset authenticated state when component unmounts
+        // };
     }, [navigate]); // useEffect dependencies array: re-run effect when 'navigate' changes
 
 

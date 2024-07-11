@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function Category() {
@@ -74,6 +75,8 @@ function Category() {
     return (
         <div className="container mt-4">
             <h1>Add Category</h1>
+            <Link to="/admin/view-category" className='btn btn-primary btn-sm float-end'>View Category</Link>
+
 
             {display_errors.map((item, index) => (
                 <p key={index}>{item}</p>

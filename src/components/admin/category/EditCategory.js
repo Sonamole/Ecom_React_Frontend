@@ -24,7 +24,7 @@ function EditCategory(props) {
             if(response.data.status===200)
             {
                 setCategory(response.data.category)
-                navigate('/admin/view-category')
+
             }
             else if(response.data.status===404){
                 swal("Error",response.data.message,"error")
@@ -57,6 +57,7 @@ function EditCategory(props) {
             {
                 swal("Success",response.data.message,"success")
                 setError([]);
+                navigate('/admin/view-category');
             }
             else if(response.data.status===422)
             {

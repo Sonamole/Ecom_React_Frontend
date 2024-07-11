@@ -4,6 +4,9 @@ import Profile from '../components/admin/Profile';
 import Category from '../components/admin/category/Category';
 import ViewCategory from '../components/admin/category/ViewCategory';
 import EditCategory from '../components/admin/category/EditCategory';
+import AddProduct from '../components/admin/product/AddProduct';
+import ViewProduct from '../components/admin/product/ViewProduct';
+import EditProduct from '../components/admin/product/EditProduct';
 
 const routes = [
   {
@@ -17,7 +20,9 @@ const routes = [
   {path: "add-category", exact: true, name: 'Category', component: Category},
   {path: "view-category", exact: true, name: 'ViewCategory', component: ViewCategory},
   {path: "edit-category/:id", exact: true, name: 'EditCategory', component: EditCategory},
-
+  {path: "add-product", exact: true, name: 'AddProduct', component: AddProduct},
+  {path: "view-product", exact: true, name: 'ViewProduct', component: ViewProduct},
+  {path: "edit-product/:id", exact: true, name: 'EditProduct', component: EditProduct},
 
 ];
 

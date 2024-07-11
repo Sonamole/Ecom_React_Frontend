@@ -10,7 +10,7 @@ function ViewCategory() {
 
     useEffect(() => {
       axios.get('/api/view-category').then(response=>{
-        console.log(response.data.category);
+        // console.log(response.data.category);
         if(response.status===200)
         {
             setCategory(response.data.category)

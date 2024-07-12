@@ -1,16 +1,14 @@
 import React from "react";
+import axios from "axios";
+
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import MasterLayout from "./layouts/admin/MasterLayout";
-import Home from "./components/frontend/Home";
-import About from "./components/frontend/About";
-import Contact from "./components/frontend/Contact";
+
 import Login from "./components/frontend/auth/Login";
 import Register from "./components/frontend/auth/Register";
 import AdminPrivateRoute from "./AdminPrivateRoute"
 import Page403 from "./components/error/Page403";
 import Page404 from "./components/error/Page404";
-
-import axios from "axios";
+import PublicRoute from "./PublicRoute";
 
 // Axios configuration
 axios.defaults.baseURL = "http://127.0.0.1:8000/"; // This line sets the base URL for all Axios requests. axios.defaults.baseURL is a property provided by Axios that allows you to set a default base URL for all HTTP requests. In this case, http://127.0.0.1:8000/ is set as the base URL, which is typically the address where your Laravel backend server is running locally during development (127.0.0.1 refers to the localhost).
@@ -36,9 +34,8 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin/*" element={<AdminPrivateRoute />}/>
+          <Route path="*" name="Home" element={<PublicRoute/>}/>
           <Route path="/403" element={<Page403 />} />
           <Route path="/404" element={<Page404 />} />
 
@@ -52,7 +49,7 @@ function App() {
             element={isAuthenticated ? <Navigate to="/" /> : <Register />}
           />
 
-          <Route path="/admin/*" element={<AdminPrivateRoute />}/> {/*Any path that starts with /admin/.... followed by anything will match this route.(Eg:localhost:3000/admin/dashboard,localhost:3000/admin/profile ).it will go to AdminPrivateRoute.js */}
+           {/*Any path that starts with /admin/.... followed by anything will match this route.(Eg:localhost:3000/admin/dashboard,localhost:3000/admin/profile ).it will go to AdminPrivateRoute.js */}
 
         </Routes>
       </Router>

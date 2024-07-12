@@ -18,6 +18,7 @@ function ViewProduct() {
         axios.get(`/api/fetchproducts/${product_slug}`).then(response => {
             if (isMounted) {
                 if (response.data.status === 200) {
+                    console.log(response.data.product_data.product);
                     setProduct(response.data.product_data.product);
                     setCategory(response.data.product_data.category);
                     setLoading(false);
@@ -45,12 +46,12 @@ function ViewProduct() {
                 return (
                     <div className="col-md-3" key={idx}>
                         <div className="card">
-                            <Link to="">
+                            <Link to={`/collections/${item.category.slug}/${item.slug}`}>
                             {/* <img src="http://localhost:8000/uploads/product/example.jpg" /> */}
                                 <img src={`http://localhost:8000/${item.image}`} className="w-100" alt={item.name} />
                             </Link>
                             <div className="card-body">
-                                <Link to="">
+                                <Link to={`/collections/${item.category.slug}/${item.slug}`}>
                                     <h5>{item.name}</h5>
                                 </Link>
                             </div>

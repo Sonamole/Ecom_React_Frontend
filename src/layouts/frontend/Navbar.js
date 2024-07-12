@@ -48,6 +48,9 @@ function Navbar() {
           <li className="nav-item">
             <Link className="nav-link" to="/collections">Collections</Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/cart">Cart</Link>
+          </li>
           {!localStorage.getItem('auth_token') ? ( //checks if there is an auth_token stored in the browser's local storage.
             <>
               <li className="nav-item">

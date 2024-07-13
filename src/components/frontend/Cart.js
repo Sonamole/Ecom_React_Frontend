@@ -116,6 +116,7 @@ function Cart() {
     var cart_HTMl = '';
     if (cart.length > 0) {
         cart_HTMl =
+        <div>
             <div className="table-responsive">
                 <table className="table table-bordered">
                     <thead>
@@ -158,6 +159,23 @@ function Cart() {
                     </tbody>
                 </table>
             </div>
+            <div className='row'>
+                 <div className="col-md-8">
+                            <div className="col-md-4">
+                                <div className="card card-body mt-3">
+                                    <h4>Subtotal:
+                                        <span className='float-end'>{totalCartPrice}</span>
+                                    </h4>
+                                    <h4> Grand Total:
+                                        <span className='float-end'>{totalCartPrice}</span>
+                                    </h4>
+                                    <Link to='/checkout' className='btn btn-primary'>Checkout</Link>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            </div>
+
     }
 
     else {
@@ -184,19 +202,7 @@ function Cart() {
                         <div className="col-md-12">
                             {cart_HTMl}
                         </div>
-                        <div className="col-md-8">
-                            <div className="col-md-4">
-                                <div className="card card-body mt-3">
-                                    <h4>Subtotal:
-                                        <span className='float-end'>{totalCartPrice}</span>
-                                    </h4>
-                                    <h4> Grand Total:
-                                        <span className='float-end'>{totalCartPrice}</span>
-                                    </h4>
-                                    <Link to='/checkout' className='btn btn-primary'>Checkout</Link>
-                                </div>
-                            </div>
-                        </div>
+
 
                     </div>
                 </div>
